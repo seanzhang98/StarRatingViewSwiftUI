@@ -46,7 +46,7 @@ public struct StarRatingView: View
       let l: CGFloat = floor(geometry.size.height)
       let s: CGFloat = floor(l * 0.2) // space between stars
       let w: CGFloat = (l + s) * CGFloat(maxRating)
-      HStack(spacing: s) {
+      HStack(alignment: .center, spacing: s) {
         ForEach(0..<fullCount, id: \.self) { _ in
           self.fullStar.frame(width: l, height: l)
         }
