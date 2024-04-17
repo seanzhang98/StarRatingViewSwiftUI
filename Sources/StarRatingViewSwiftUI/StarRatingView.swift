@@ -43,23 +43,26 @@ public struct StarRatingView: View
 
   public var body: some View {
     GeometryReader { geometry in
-      let l: CGFloat = floor(geometry.size.height)
-      let s: CGFloat = floor(l * 0.2) // space between stars
-      let w: CGFloat = (l + s) * CGFloat(maxRating)
-      HStack(alignment: .center, spacing: s) {
-        ForEach(0..<fullCount, id: \.self) { _ in
-          self.fullStar.frame(width: l, height: l)
+        let l: CGFloat = floor(geometry.size.height)
+        let s: CGFloat = floor(l * 0.2) // space between stars
+        let w: CGFloat = (l + s) * CGFloat(maxRating)
+        HStack {
+            Spacer()
+            HStack(alignment: .center, spacing: s) {
+                ForEach(0..<fullCount, id: \.self) { _ in
+                    self.fullStar.frame(width: l, height: l)
+                }
+                ForEach(0..<halfFullCount, id: \.self) { _ in
+                    self.halfFullStar.frame(width: l, height: l)
+                }
+                ForEach(0..<emptyCount, id: \.self) { _ in
+                    self.emptyStar.frame(width: l, height: l)
+                }
+            }
+            .gesture(needsComputing ? tap(on: w) : nil)
+            Spacer()
         }
-        ForEach(0..<halfFullCount, id: \.self) { _ in
-          self.halfFullStar.frame(width: l, height: l)
-        }
-        ForEach(0..<emptyCount, id: \.self) { _ in
-          self.emptyStar.frame(width: l, height: l)
-        }
-      }
-      .gesture(needsComputing ? tap(on: w) : nil)
     }
-  }
 }
 
 extension StarRatingView
